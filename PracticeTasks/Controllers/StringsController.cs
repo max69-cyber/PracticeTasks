@@ -16,6 +16,22 @@ namespace PracticeTasks.Controllers
                 return BadRequest("String can't be empty");
             }
             
+            var errorSymbols = input
+                .Where(c => c < 'a' || c > 'z')
+                .ToList();
+            
+            if (errorSymbols.Any())
+            {
+                var errorString = new StringBuilder("В строке присутсвуют невалидные символы: ");
+                foreach (var c in errorSymbols)
+                {
+                    errorString.Append($"{c}, ");
+                }
+                errorString.Remove(errorString.Length - 2, 2);
+                errorString.Append(".");
+                return BadRequest(errorString.ToString());
+            }
+            
             var result = new StringBuilder();
             int length = input.Length;
             
