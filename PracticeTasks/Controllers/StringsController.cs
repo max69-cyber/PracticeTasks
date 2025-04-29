@@ -24,10 +24,13 @@ namespace PracticeTasks.Controllers
             {
                 var result = _stringsService.MirrorString(input);
                 var charCount = _stringsService.GetCharacterCount(input);
+                var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(input);
+                
                 return Ok(new
                 {
-                    Result = result.ToString(),
-                    SymbolsCount = charCount
+                    Result = result,
+                    SymbolsCount = charCount,
+                    VowelsSubstring = longestVowelSubstring
                 });
             }
             catch(Exception ex)
