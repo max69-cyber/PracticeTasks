@@ -24,8 +24,7 @@ namespace PracticeTasks.Controllers
             {
                 var result = _stringsService.MirrorString(input);
                 var charCount = _stringsService.GetCharacterCount(input);
-                var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(input);
-                
+                var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(result);
                 return Ok(new
                 {
                     Result = result,
