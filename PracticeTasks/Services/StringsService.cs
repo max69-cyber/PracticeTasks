@@ -47,6 +47,39 @@ public class StringsService : IStringsService
         return charCount;
     }
 
+    public string GetLongestVowelSubstring(string input)
+    {
+        var vowels = new char[] { 'a', 'e', 'i', 'o', 'u', 'y' };
+        int longestVowelSubstring = 0;
+        int startIndex = -1;
+        int latestVowelIndex = -1;
+        
+        for (int i = 0; i < input.Length; i++)
+        {
+            if (vowels.Contains(input[i]))
+            {
+                if (latestVowelIndex != -1)
+                {
+                    int currentVowelSubstring = i + 1 - latestVowelIndex;
+                    if (currentVowelSubstring > longestVowelSubstring)
+                    {
+                        longestVowelSubstring = currentVowelSubstring;
+                        startIndex = latestVowelIndex;
+                    }
+                }
+                else
+                {
+                    latestVowelIndex = i;
+                }
+            }
+        }
+
+        if (latestVowelIndex == -1) return null;
+        if (startIndex == -1) return input.Substring(latestVowelIndex,1);
+        
+        return input.Substring(startIndex, longestVowelSubstring);
+    }
+
     private void ValidateString(string input)
     {
         if (string.IsNullOrEmpty(input))
