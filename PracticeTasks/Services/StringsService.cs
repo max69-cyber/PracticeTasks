@@ -5,6 +5,13 @@ namespace PracticeTasks.Services;
 
 public class StringsService : IStringsService
 {
+    private ISortingService _sortingService;
+
+    public StringsService(ISortingService sortingService)
+    {
+        _sortingService = sortingService;
+    }
+    
     public string MirrorString(string input)
     {
         ValidateString(input);
@@ -78,6 +85,31 @@ public class StringsService : IStringsService
         if (startIndex == -1) return input.Substring(latestVowelIndex,1);
         
         return input.Substring(startIndex, longestVowelSubstring);
+    }
+
+    public string SortString(string input, string sortMethod)
+    {
+        if (sortMethod == "quick")
+        {
+            char[] array = input.ToCharArray();
+            _sortingService.QuickSort(array, 0, array.Length - 1);
+            string sortingResult = new string(array);
+            
+            return sortingResult;
+        }
+        else if (sortMethod == "tree")
+        {
+            char[] array = input.ToCharArray();
+            _sortingService.TreeSort(array);
+            string sortingResult = new string(array);
+            
+            return sortingResult;
+        }
+        else
+        {
+            throw new Exception("Такой метод сортировки не реализован.");
+        }
+        
     }
 
     private void ValidateString(string input)
