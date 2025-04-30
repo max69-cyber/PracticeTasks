@@ -18,18 +18,21 @@ namespace PracticeTasks.Controllers
         }
         
         [HttpGet("mirror")]
-        public IActionResult MirrorString(string input)
+        public IActionResult MirrorString(string input, string sortAlgorithm)
         {
             try
             {
                 var result = _stringsService.MirrorString(input);
                 var charCount = _stringsService.GetCharacterCount(input);
                 var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(result);
+                var sortedResult = _stringsService.SortString(result, sortAlgorithm);
+                
                 return Ok(new
                 {
                     Result = result,
                     SymbolsCount = charCount,
-                    VowelsSubstring = longestVowelSubstring
+                    VowelsSubstring = longestVowelSubstring,
+                    SortedResult = sortedResult
                 });
             }
             catch(Exception ex)

@@ -7,4 +7,6 @@ public interface IStringsService
     Dictionary<char, int> GetCharacterCount(string input);
     
     string GetLongestVowelSubstring(string input);
+    
+    string SortString(string input, string sortMethod);
 }
