@@ -12,7 +12,7 @@ namespace PracticeTasks.Controllers
     {
         private IStringsService _stringsService;
 
-        public StringsController(IStringsService stringsService, ISortingService sortingService)
+        public StringsController(IStringsService stringsService)
         {
             _stringsService = stringsService;
         }
