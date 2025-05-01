@@ -6,10 +6,12 @@ namespace PracticeTasks.Services;
 public class StringsService : IStringsService
 {
     private ISortingService _sortingService;
+    private IRandomService _randomService;
 
-    public StringsService(ISortingService sortingService)
+    public StringsService(ISortingService sortingService, IRandomService randomService)
     {
         _sortingService = sortingService;
+        _randomService = randomService;
     }
     
     public string MirrorString(string input)
@@ -110,6 +112,14 @@ public class StringsService : IStringsService
             throw new Exception("Такой метод сортировки не реализован.");
         }
         
+    }
+
+    public async Task<string> GetStringWithRemovedSymbol(string input)
+    {
+        int length = input.Length;
+        int index = await _randomService.GetRandomNumber(length);
+
+        return input.Remove(index, 1);
     }
 
     private void ValidateString(string input)

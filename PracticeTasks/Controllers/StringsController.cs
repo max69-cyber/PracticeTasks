@@ -18,7 +18,7 @@ namespace PracticeTasks.Controllers
         }
         
         [HttpGet("mirror")]
-        public IActionResult MirrorString(string input, string sortAlgorithm)
+        public async Task<IActionResult> MirrorString(string input, string sortAlgorithm)
         {
             try
             {
@@ -26,13 +26,15 @@ namespace PracticeTasks.Controllers
                 var charCount = _stringsService.GetCharacterCount(input);
                 var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(result);
                 var sortedResult = _stringsService.SortString(result, sortAlgorithm);
+                var randomResult = await _stringsService.GetStringWithRemovedSymbol(result);
                 
                 return Ok(new
                 {
                     Result = result,
                     SymbolsCount = charCount,
                     VowelsSubstring = longestVowelSubstring,
-                    SortedResult = sortedResult
+                    SortedResult = sortedResult,
+                    RandomResult = randomResult
                 });
             }
             catch(Exception ex)

@@ -9,4 +9,6 @@ public interface IStringsService
     string GetLongestVowelSubstring(string input);
     
     string SortString(string input, string sortMethod);
+    
+    Task<string> GetStringWithRemovedSymbol(string input);
 }
