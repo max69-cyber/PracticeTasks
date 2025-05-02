@@ -1,6 +1,8 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
+using PracticeTasks.Configuration;
 using PracticeTasks.Services.Interfaces;
 
 namespace PracticeTasks.Services;
@@ -8,17 +10,19 @@ namespace PracticeTasks.Services;
 public class RandomService : IRandomService
 {
     private readonly HttpClient _httpClient;
+    private readonly string _apiUrl;
 
-    public RandomService(HttpClient httpClient)
+    public RandomService(HttpClient httpClient, IOptions<AppSettings> appSettings)
     {
         _httpClient = httpClient;
+        _apiUrl = appSettings.Value.RandomApi;
     }
     
     public async Task<int> GetRandomNumber(int maxNumber)
     {
         try
         {
-            var response = await _httpClient.GetAsync($"https://www.randomnumberapi.com/api/v1.0/random?min=0&max={maxNumber}&count=1");
+            var response = await _httpClient.GetAsync($"{_apiUrl}?min=0&max={maxNumber}&count=1");
             response.EnsureSuccessStatusCode();
             
             var json = await response.Content.ReadAsStringAsync();

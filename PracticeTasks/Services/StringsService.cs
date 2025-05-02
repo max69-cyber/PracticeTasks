@@ -1,4 +1,6 @@
 using System.Text;
+using Microsoft.Extensions.Options;
+using PracticeTasks.Configuration;
 using PracticeTasks.Services.Interfaces;
 
 namespace PracticeTasks.Services;
@@ -7,11 +9,13 @@ public class StringsService : IStringsService
 {
     private ISortingService _sortingService;
     private IRandomService _randomService;
+    private readonly List<string> _blacklist;
 
-    public StringsService(ISortingService sortingService, IRandomService randomService)
+    public StringsService(ISortingService sortingService, IRandomService randomService, IOptions<AppSettings> appSettings)
     {
         _sortingService = sortingService;
         _randomService = randomService;
+        _blacklist = appSettings.Value.Settings.BlackList;
     }
     
     public string MirrorString(string input)
@@ -146,5 +150,8 @@ public class StringsService : IStringsService
             
             throw new ArgumentException(errorString.ToString());
         }
+
+        if (_blacklist.Contains(input)) 
+            throw new ArgumentException("Данная строка находится в черном списке.");
     }
 }
