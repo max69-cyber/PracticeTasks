@@ -17,29 +17,29 @@ namespace PracticeTasks.Controllers
             _stringsService = stringsService;
         }
         
-        [HttpGet("mirror")]
+        [HttpGet("mirror")] //HTTP GET
         public async Task<IActionResult> MirrorString(string input, string sortAlgorithm)
         {
             try
             {
                 var result = _stringsService.MirrorString(input);
-                var charCount = _stringsService.GetCharacterCount(input);
+                var charCount = _stringsService.GetCharacterCount(result);
                 var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(result);
                 var sortedResult = _stringsService.SortString(result, sortAlgorithm);
                 var randomResult = await _stringsService.GetStringWithRemovedSymbol(result);
                 
-                return Ok(new
+                return Ok(new // JSON
                 {
-                    Result = result,
-                    SymbolsCount = charCount,
-                    VowelsSubstring = longestVowelSubstring,
-                    SortedResult = sortedResult,
-                    RandomResult = randomResult
+                    Result = result, //Обработанная строка
+                    SymbolsCount = charCount, //Информация о том, сколько раз входил в обработанную строку каждый символ
+                    VowelsSubstring = longestVowelSubstring, //Самая длинная подстрока начинающаяся и заканчивающаяся на гласную
+                    SortedResult = sortedResult, //Отсортированная обработанная строка
+                    RandomResult = randomResult //«Урезанная» обработанная строка – обработанная строка без одного символа
                 });
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(ex.Message);  //HTTP ошибка 400 Bad Request
             }
             
         }
