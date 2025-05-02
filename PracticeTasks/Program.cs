@@ -1,5 +1,6 @@
 using PracticeTasks.Services;
 using PracticeTasks.Services.Interfaces;
+using PracticeTasks.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IStringsService,StringsService>();
 builder.Services.AddSingleton<ISortingService,SortingService>();
 builder.Services.AddHttpClient<IRandomService, RandomService>();
+builder.Services.Configure<AppSettings>(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
