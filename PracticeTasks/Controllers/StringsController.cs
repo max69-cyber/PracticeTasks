@@ -27,6 +27,8 @@ namespace PracticeTasks.Controllers
                 var longestVowelSubstring = _stringsService.GetLongestVowelSubstring(result);
                 var sortedResult = _stringsService.SortString(result, sortAlgorithm);
                 var randomResult = await _stringsService.GetStringWithRemovedSymbol(result);
+
+                // await Task.Delay(10000); // Для проверки работы ParallelLimit
                 
                 return Ok(new // JSON
                 {
