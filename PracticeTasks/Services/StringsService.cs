@@ -113,7 +113,7 @@ public class StringsService : IStringsService
         }
         else
         {
-            throw new Exception("Такой метод сортировки не реализован.");
+            throw new ArgumentException("Такой метод сортировки не реализован.");
         }
         
     }
